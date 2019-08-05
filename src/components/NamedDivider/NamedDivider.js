@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './styles.css'
 
-const NamedDivider = ({name = ''}) => {
+const NamedDivider = ({name}) => {
   return (
     <div className='divider-wrapper'>
-      <span className='divider-name'>{name.toUpperCase()}</span>
+      { name && <span className='divider-name'>{name.toUpperCase()}</span> }
       <span className='divider' />
     </div>
   )
@@ -16,7 +16,7 @@ NamedDivider.propTypes = {
 }
 
 NamedDivider.defaultProps = {
-  name: ''
+  name: null
 }
 
 export default NamedDivider

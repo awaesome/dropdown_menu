@@ -18,15 +18,18 @@ const styles = (showMenu = false) => {
     card: {
       width: '200px',
       borderRadius: '8px',
-      height: showMenu ? 'auto' : '0',
+      height: 'auto',
+      maxHeight: showMenu ? '1000px' : '0',
       overflow: 'hidden',
+      transition: 'all 0.3s'
     },
     button: {
+      cursor: 'pointer',
       borderRadius: '4px',
       backgroundColor: '#2FC29F',
       padding: '10px 15px',
       border: 'none',
-      color: 'white'
+      color: 'white',
     }
   }
 }

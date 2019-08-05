@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './styles.css'
 import plus from '../../assets/imgs/plus.png'
@@ -6,6 +6,7 @@ import img1 from '../../assets/imgs/img1.png'
 import img2 from '../../assets/imgs/img2.png'
 import img3 from '../../assets/imgs/img3.png'
 import NamedDiviver from '../NamedDivider/NamedDivider'
+import MenuItem from '../MenuItem/MenuItem'
 
 const initialItems = [
   {
@@ -23,21 +24,26 @@ const initialItems = [
     icon: img3,
     disabled: false
   },
+  {
+    type: 'divider',
+    name: 'stripe'
+  },
+  {name: 'Menu item'},
+  {name: 'Menu item'},
+  {name: 'Menu item'},
+  {
+    type: 'divider'
+  },
+  {name: 'Menu item'},
 ]
 
-const additionalItem = [
-  {name: 'Menu item'},
-  {name: 'Menu item'},
-  {name: 'Menu item'},
-]
-
-const DropdownMenu = ({setPage, children, theme = 'primary'}) => {
+const DropdownMenu = ({setPage, theme = 'primary'}) => {
   const [items, setItems] = useState(initialItems)
-  const [name, setName] = useState('')
 
-  const handleAddItem = () => {
-    setItems(state => ({...state, name}))
-  }
+  useEffect(() => {
+    setItems(initialItems)
+  }, [])
+
 
   return (
     <div className='menu'>
@@ -47,42 +53,25 @@ const DropdownMenu = ({setPage, children, theme = 'primary'}) => {
       </header>
       <main>
         {
-          items.map(({icon, name, disabled}) => (
-            <div
-              key={name.replace(/\s/gm, '')}
-              onClick={() => setPage(name)}
-              className={`
-                item 
-                ${disabled && 'item--disabled'} 
-                ${theme} 
-              `}
-            >
+          items.map(({icon, name = '', disabled = false, type = 'page'}, index) => (
+            <>
               {
-                icon &&
-                  <div className='item__img-wrapper'>
-                    <img src={icon} alt='icon'/>
-                  </div>
+                type === 'page'
+                  ? <MenuItem
+                      key={name.replace(/\s/gm, '')}
+                      setPage={() => setPage(name)}
+                      disabled={disabled}
+                      icon={icon}
+                      theme={theme}
+                    >
+                      {name}
+                    </MenuItem>
+                  : <NamedDiviver key={name.replace(/\s/gm, '') + index} name={name}/>
               }
-              <span>{name}</span>
-            </div>
+
+            </>
           ))
         }
-        <NamedDiviver />
-        {
-          additionalItem.map(({icon, name, disabled}) => (
-            <div
-              key={name.replace(/\s/gm, '')}
-              className={`
-                item 
-                ${disabled && 'item--disabled'} 
-                ${theme} 
-              `}
-            >
-              <span>{name}</span>
-            </div>
-          ))
-        }
-        <NamedDiviver name='stripe'/>
       </main>
     </div>
   )
@@ -90,13 +79,12 @@ const DropdownMenu = ({setPage, children, theme = 'primary'}) => {
 
 DropdownMenu.propTypes = {
   setPage: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-  theme: PropTypes.string.isRequired
+  theme: PropTypes.string
 }
 
 DropdownMenu.defaultProps = {
   setPage: () => {},
-  theme: 'primary' || 'black'
+  theme: 'primary' || 'dark' || 'cyan'
 }
 
 export default DropdownMenu

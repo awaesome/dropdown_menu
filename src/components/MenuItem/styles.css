@@ -1,0 +1,57 @@
+.item {
+    display: flex;
+    padding: 10px 25px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #5D6A7A;
+}
+
+.item--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.item__img-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+/*
+ THEMES
+ */
+
+/*PRIMARY*/
+.primary:hover {
+    background-color: #F0F4FA;
+}
+
+.primary:active {
+    background-color: #F0F4FA;
+}
+
+/*DARK*/
+.dark:hover {
+    background-color: #5D6A7A;
+    color: white;
+}
+
+.dark:active {
+    background-color: #27313D;
+    color: white;
+    border: none;
+}
+
+/*CYAN*/
+.cyan:hover {
+    background-color: #36E0B8;
+    color: white;
+}
+
+.cyan:active {
+    background-color: #27A386;
+    color: white;
+    border: none;
+}
