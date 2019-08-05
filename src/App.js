@@ -1,24 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import ButtonDropdown from './components/ButtonDropdown'
+import DropdownMenu from './components/DropdownMenu/DropdownMenu'
+import Page1 from './pages/Page1'
+import Page2 from './pages/Page2'
+import Page3 from './pages/Page3'
 
 function App() {
+  const [page, setPage] = useState('default')
+
+  let content = 'default'
+
+  switch(page) {
+    case 'default': {
+      content = (
+        <ButtonDropdown>
+          <DropdownMenu setPage={setPage} theme='primary' />
+        </ButtonDropdown>
+      )
+      break
+    }
+
+    case 'page1': {
+      content = <Page1 setPage={() => setPage('default')} />
+      break
+    }
+
+    case 'page2': {
+      content = <Page2 setPage={() => setPage('default')} />
+      break
+    }
+
+    case 'page3': {
+      content = <Page3 setPage={() => setPage('default')} />
+      break
+    }
+    default: content = (
+      <ButtonDropdown>
+        <DropdownMenu setPage={setPage} theme='primary' />
+      </ButtonDropdown>
+    )
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        content
+      }
     </div>
   );
 }
